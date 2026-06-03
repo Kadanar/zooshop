@@ -15,6 +15,7 @@ class Category(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название')
     description = models.TextField(blank=True, verbose_name='Описание')
     image = models.ImageField(upload_to='categories/', blank=True, null=True, verbose_name='Изображение')
+    image_url = models.URLField(blank=True, null=True, verbose_name='URL изображения')
 
     class Meta:
         verbose_name = 'Категория'
@@ -23,6 +24,13 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_image(self):
+        if self.image:
+            return self.image.url
+        elif self.image_url:
+            return self.image_url
+        return None
 
 
 class Supplier(models.Model):
@@ -55,6 +63,7 @@ class Product(models.Model):
     suppliers = models.ManyToManyField(Supplier, through='Supply',
                                        related_name='products', verbose_name='Поставщики')
     image = models.ImageField(upload_to='products/', blank=True, null=True, verbose_name='Изображение')
+    image_url = models.URLField(blank=True, null=True, verbose_name='URL изображения')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата изменения')
 
@@ -65,6 +74,13 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.article} - {self.name}'
+
+    def get_image(self):
+        if self.image:
+            return self.image.url
+        elif self.image_url:
+            return self.image_url
+        return None
 
 
 class Supply(models.Model):
