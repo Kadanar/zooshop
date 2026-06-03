@@ -1,0 +1,63 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.card {
+    transition: transform 0.2s;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.badge-category {
+    background-color: #198754;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.price {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #198754;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #198754, #20c997);
+    color: white;
+    padding: 60px 0;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.stats-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.stats-card h2 {
+    color: #198754;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: auto;
+}

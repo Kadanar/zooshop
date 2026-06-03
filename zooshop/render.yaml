@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: zooshop
+    env: python
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
+    startCommand: gunicorn zooshop.wsgi:application
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: LOG_LEVEL
+        value: INFO

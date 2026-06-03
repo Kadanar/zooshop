@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная — Зоомагазин{% endblock %}
+
+{% block content %}
+
+<div class="hero-section text-center">
+    <h1 class="display-4 fw-bold">🐾 Добро пожаловать в Зоомагазин!</h1>
+    <p class="lead">Всё необходимое для ваших питомцев</p>
+    <a href="/products/" class="btn btn-light btn-lg mt-3">
+        <i class="bi bi-grid"></i> Смотреть товары
+    </a>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="stats-card">
+            <h2>{{ total_products }}</h2>
+            <p class="text-muted mb-0">Товаров</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <h2>{{ total_categories }}</h2>
+            <p class="text-muted mb-0">Категорий</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <h2>{{ total_suppliers }}</h2>
+            <p class="text-muted mb-0">Поставщиков</p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="stats-card">
+            <h2>{{ total_sales }}</h2>
+            <p class="text-muted mb-0">Продаж</p>
+        </div>
+    </div>
+</div>
+
+<h3 class="mb-3">🐶 Случайное фото питомца</h3>
+<div class="card mb-4" style="max-width: 400px;">
+    {% if dog_image %}
+        <img src="{{ dog_image }}" class="card-img-top" alt="Собака">
+    {% endif %}
+    <div class="card-body">
+        <p class="card-text text-muted">Случайное фото из Dogs API</p>
+    </div>
+</div>
+
+<h3 class="mb-3">🌤️ Погода в Минске</h3>
+{% if weather %}
+<div class="card mb-4" style="max-width: 400px;">
+    <div class="card-body">
+        <h5 class="card-title">{{ weather.city }}</h5>
+        <p class="card-text">
+            <i class="bi bi-thermometer"></i> Температура: <strong>{{ weather.temp }}°C</strong><br>
+            <i class="bi bi-cloud"></i> {{ weather.description }}<br>
+            <i class="bi bi-droplet"></i> Влажность: {{ weather.humidity }}%
+        </p>
+    </div>
+</div>
+{% endif %}
+
+<h3 class="mb-3">Категории товаров</h3>
+<div class="row">
+    {% for category in categories %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            {% if category.image %}
+                <img src="{{ category.image.url }}" class="card-img-top" alt="{{ category.name }}">
+            {% else %}
+                <div class="card-img-top bg-success d-flex align-items-center justify-content-center" style="height:200px">
+                    <i class="bi bi-tag text-white" style="font-size:3rem"></i>
+                </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ category.name }}</h5>
+                <p class="card-text text-muted">{{ category.description|truncatewords:10 }}</p>
+                <a href="/products/?category={{ category.pk }}" class="btn btn-success btn-sm">
+                    Смотреть товары
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+        <p class="text-muted">Категории пока не добавлены.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Личный кабинет — Зоомагазин{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">
+    <i class="bi bi-person-circle"></i> Личный кабинет
+</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h5 class="card-title">Профиль</h5>
+                <p><strong>Имя:</strong> {{ user.get_full_name }}</p>
+                <p><strong>Логин:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                {% if client %}
+                    <p><strong>Телефон:</strong> {{ client.phone }}</p>
+                    <p><strong>Адрес:</strong> {{ client.address }}</p>
+                    <p><strong>Дата рождения:</strong> {{ client.birth_date|date:"d/m/Y" }}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-body">
+                <h5 class="card-title">Мои покупки</h5>
+                {% if sales %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-success">
+                                <tr>
+                                    <th>№</th>
+                                    <th>Дата</th>
+                                    <th>Товары</th>
+                                    <th>Сумма</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sale in sales %}
+                                <tr>
+                                    <td>{{ sale.pk }}</td>
+                                    <td>{{ sale.date|date:"d/m/Y" }}</td>
+                                    <td>
+                                        {% for item in sale.items.all %}
+                                            {{ item.product.name }} x{{ item.quantity }}<br>
+                                        {% endfor %}
+                                    </td>
+                                    <td><strong>{{ sale.total }} руб.</strong></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">У вас пока нет покупок.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
